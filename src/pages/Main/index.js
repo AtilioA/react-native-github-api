@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Keyboard } from 'react-native';
+import { Keyboard, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import '../../config/ReactotronConfig';
@@ -25,10 +25,12 @@ export default class Main extends Component {
   state = {
     newUser: '',
     users: [],
+    loading: false,
   };
 
   handleAddUser = async () => {
     Keyboard.dismiss();
+    this.setState({ loading: true });
     console.tron.log(this.state.newUser);
 
     const { users, newUser } = this.state;
@@ -45,11 +47,12 @@ export default class Main extends Component {
     this.setState({
       users: [...users, data],
       newUser: '',
+      loading: false,
     });
   };
 
   render() {
-    const { users, newUser } = this.state;
+    const { users, newUser, loading } = this.state;
     return (
       <Container>
         <Form>
@@ -62,8 +65,12 @@ export default class Main extends Component {
             returnKeyType="send"
             onSubmitEditing={this.handleAddUser}
           />
-          <SubmitButton onPress={this.handleAddUser}>
-            <Icon name="add" size={20} color="#EEE" />
+          <SubmitButton loading={loading} onPress={this.handleAddUser}>
+            {loading ? (
+              <ActivityIndicator color="#eee" />
+            ) : (
+                <Icon name="add" size={20} color="#EEE" />
+              )}
           </SubmitButton>
         </Form>
 
