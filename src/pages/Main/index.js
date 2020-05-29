@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 
 import { Keyboard, ActivityIndicator } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import '../../config/ReactotronConfig';
@@ -22,11 +24,32 @@ import {
 } from './styles';
 
 export default class Main extends Component {
+  static propTypes = {
+    route: propTypes.shape({
+      navigate: propTypes.func,
+    }).isRequired,
+  };
+
   state = {
     newUser: '',
     users: [],
     loading: false,
   };
+
+  async componentDidMount() {
+    console.tron.log(this.props);
+    const users = await AsyncStorage.getItem('users');
+    if (users) {
+      this.setState({ users: JSON.parse(users) });
+    }
+  }
+
+  async componentDidUpdate(_, prevState) {
+    const { users } = this.state;
+    if (prevState.users !== users) {
+      AsyncStorage.setItem('users', JSON.stringify(users));
+    }
+  }
 
   handleAddUser = async () => {
     Keyboard.dismiss();
@@ -49,6 +72,12 @@ export default class Main extends Component {
       newUser: '',
       loading: false,
     });
+  };
+
+  handleNavigate = (user) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('User', { user });
   };
 
   render() {
@@ -83,7 +112,7 @@ export default class Main extends Component {
               <Name>{item.name}</Name>
               <Bio>{item.bio}</Bio>
 
-              <ProfileButton onPress={() => { }}>
+              <ProfileButton onPress={() => this.handleNavigate(item)}>
                 <ProfileButtonText>View profile</ProfileButtonText>
               </ProfileButton>
             </User>
@@ -93,7 +122,3 @@ export default class Main extends Component {
     );
   }
 }
-
-Main.navigationOptions = {
-  title: 'Olá, mundo!',
-};

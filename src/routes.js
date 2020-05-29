@@ -26,9 +26,16 @@ function Routes() {
         <Stack.Screen
           name="Main"
           component={Main}
-          options={{ title: 'Users' }}
+          options={{ title: 'Users', headerTitleAlign: 'center' }}
         />
-        <Stack.Screen name="User" component={User} />
+        <Stack.Screen
+          name="User"
+          component={User}
+          options={({ route }) => ({
+            title: route.params.user.login,
+            headerTitleAlign: 'center',
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
