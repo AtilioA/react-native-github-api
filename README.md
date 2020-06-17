@@ -1,15 +1,13 @@
 # react-native-github-api
 
-📚 Small React Native app to consume GitHub's API.
-
 <h1 align="center">
     <img alt="react-native-github-api" title="react-native-github-api" src=".github/app.gif" width="250px" />
 </h1>
 
 <p align="center">
-  <a href="#💻-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#🔧-tools">Tools</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#🏡-running-locally">Running locally</a>
+  <a href="#-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tools">Tools</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-running-locally">Running locally</a>
 </p>
 
 <p align="center">
